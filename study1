@@ -1,1 +1,38 @@
-asdf
+## 문제 1
+a=int(input())
+b=int(input())
+c=int(input())
+d=int(input())
+e=int(input())
+
+num = [a,b,c,d,e]
+num.sort()
+
+# max에 입력받은 정수 중 가장 큰 값 대입
+# max2에 입력받은 정수 중 가장 작은 값 대입
+# 중복된 숫자 있을 경우를 고려하였다.
+
+max = num[-1];max2=num[0]
+for i in num:
+  if max == i:continue
+  elif max2 <= i:
+    max2 = i
+print('두번째로 큰 숫자는 =',max2)
+
+## 문제 2
+def big(a,b):
+  if a>b:
+    return a
+  else:
+    return b
+
+# 숫자의 갯수만큼 별표를 찍어야 하기에, 변수를 정수로 설정했습니다.
+a= int(input())
+b= int(input())
+
+c=big(a,b)
+
+if 1<=c<=10:
+  print('*'*c)
+else:
+  print('1이상 10이하의 숫자를 입력해 주세요')
