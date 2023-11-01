@@ -1,0 +1,49 @@
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+import numpy as np
+import pandas as pd
+
+import matplotlib.pyplot as plt
+
+
+targetUrl = "https://raw.githubusercontent.com/gundaminpde/2022/main/sonar3.csv"
+
+
+Data_set = pd.read_csv(targetUrl, sep=',')
+
+
+
+## 전체 Data_set의 전체 형태는 어떤가? 207 rows × 61 columns 구나! column은 0, 1, 2, ..., 60까지.
+print(Data_set.shape)
+
+## 전체 Data_set의 앞에 5개 어떤 것인가?
+Data_set.head()
+print(Data_set.head())
+
+## 돌과 광물을 특징으로 부터 구분하는 것이다.
+## 입력 Data 부분은 0번부터 59번까지의 특징, 정답은 60번에 있다.이제 X와 y로 구분하자.
+## 0 과 1이 한개는 암석, 한개는 광물이다. 그런데, 뭐가 무엇인지는 까먹었다.
+
+
+X = Data_set.iloc[:,0:60]
+y = Data_set.iloc[:,60]
+X.head()    
+
+################################
+model = Sequential()
+model.add(Dense(500, input_dim = 60, activation = 'relu'))
+model.add(Dense(30, activation= 'sigmoid'))
+model.add(Dense(1,activation = 'sigmoid'))
+
+model.compile(loss = 'binary_crossentropy', optimizer='adam', metrics = ['binary_accuracy'])
+history = model.fit(X,y,epochs = 300, batch_size = 30)
+
+##############################
+
+y_loss = history.history['loss']
+
+x_len = np.arange(len(y_loss))
+
+plt.plot(x_len,y_loss)
+
+
